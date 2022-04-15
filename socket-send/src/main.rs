@@ -10,9 +10,10 @@ fn main() -> std::io::Result<()> {
 		usage();
 		return Ok(());
 	}	
+	let args: Vec<String> = std::env::args().collect();
 	
-	let mut address = "localhost:1234";
-	let mut data = "Hello sock";
+	let address = &args[1];
+	let data = &args[2];
 	
 	println!("Opening socket to {:?} and writing data {:?}", address, data);
 	

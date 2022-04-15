@@ -4,6 +4,7 @@ import Logo from '../components/Logo.astro';
 import '../styles/global.css';
 import '../styles/home.css';
 import SvelteCounter from '../components/SvelteCounter.svelte';
+import ChatBox from '../components/ChatBox.svelte';
 
 // Component Script:
 // You can write any JavaScript/TypeScript that you'd like here.
@@ -54,6 +55,7 @@ let title = 'Turtle Controller Client';
 </head>
 <body>
 	<main>
+		<!--
 		<header>
 			<div>
 				<Logo width={60} height={80} />
@@ -67,6 +69,7 @@ let title = 'Turtle Controller Client';
 			</div>
 			<TourContent />
 		</article>
+		-->
 
 		<!--
 
@@ -79,7 +82,8 @@ let title = 'Turtle Controller Client';
 
 		-->
 
-		<SvelteCounter client:visible />
+		<!--<SvelteCounter client:visible />-->
+		<ChatBox client:load/>
 	</main>
 </body>
 </html>

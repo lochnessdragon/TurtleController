@@ -9,15 +9,17 @@ async fn main() {
 	loop {
 		// second item has port and ip, so we ignore it
 		let (socket, _) = listener.accept().await.unwrap();
-		processConn(socket).await;
+		tokio::spawn(async move {
+			spawn_ws(socket).await;
+		});
 	}
 }
 
-async fn processConn(mut socket: TcpStream) {
+async fn spawn_ws(mut socket: TcpStream) {
 	// print bytes from the byte stream and close the connection
-	let mut buffer = [0; 10];
+	let mut buffer = Vec::<u8>::new();
 
-	socket.read(&mut buffer).await;
+	socket.read_to_end(&mut buffer).await;
 
 	println!("Recieved request: {}", std::str::from_utf8(&buffer).unwrap());
 	// the connection closes when it goes out of scope.
