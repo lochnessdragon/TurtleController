@@ -1,7 +1,16 @@
 use std::io::prelude::*;
 use std::net::TcpStream;
 
+fn usage() {
+	println!("Usage: socket-send <hostname> <data to send>");
+}
+
 fn main() -> std::io::Result<()> {
+	if std::env::args().len() < 3 {
+		usage();
+		return Ok(());
+	}	
+	
 	let mut address = "localhost:1234";
 	let mut data = "Hello sock";
 	
