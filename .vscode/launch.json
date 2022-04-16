@@ -2,10 +2,22 @@
   "version": "0.2.0",
   "configurations": [
     {
-      "command": "./frontend/node_modules/.bin/astro dev",
+      "command": "./node_modules/.bin/astro dev",
       "name": "Frontend development server",
       "request": "launch",
-      "type": "node-terminal"
-    }
+      "type": "node-terminal",
+      "cwd": "${workspaceRoot}/frontend/"
+    },
+    {
+      "type": "cppdbg",
+      "request": "launch",
+      "name": "Dev websocket proxy server",
+      "program": "${fileDirname}/../target/debug/${fileBasenameNoExtension}",
+      "args": [],
+      "cwd": "${workspaceRoot}",
+      "sourceLanguages": [
+          "rust"
+      ]
+  }
   ]
 }
