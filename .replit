@@ -1,4 +1,4 @@
-run = "cd frontend && npm run dev"
+run = "cd frontend && npm run dev & cd ../ws-proxy && cargo r"
 
 [nix]
 channel = "stable-21_11"
