@@ -25,14 +25,33 @@
 		background: whitesmoke;
 		display: flex;
  		flex-direction: column-reverse;
+		padding: 0;
+		margin: 0;
 	}
 	
 	.message-1 {
 		background: whitesmoke;
+		width: 100%;
 	}
 	
 	.message-2 {
 		background: lightgray;
+		width: 100%;
+	}
+
+	@media (prefers-color-scheme: dark) {
+		.chat {
+			background: midnightblue;
+			color: lime;
+		}
+
+		.message-1 {
+			background: midnightblue;
+		}
+
+		.message-2 {
+			background: black;
+		}
 	}
 
 	.text-scale {
