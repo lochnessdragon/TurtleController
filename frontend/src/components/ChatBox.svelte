@@ -1,9 +1,11 @@
 <script>
-	let chat = ["yes", "Is this from the server?"]
-	let newMessage = ""
+	import { onMount } from 'svelte';
+	let chat = [];
+	let newMessage = "";
+	let ws = null;
 	
-	function addMessage(msg) {
-		chat.unshift(msg);
+	function addMessage(user, msg) {
+		chat.unshift(user + ": " + msg);
 
 		// trigger re render
 		chat = chat;
@@ -12,9 +14,15 @@
 	}
 
 	function onSubmit(event) {
-		addMessage(newMessage)
+		addMessage("You", newMessage)
 		newMessage = "";
 	}
+
+	onMount(async () => {
+		addMessage("Info", "Attempting to connect to server!");
+
+		ws = new WebSocket("https://TurtleController.lochnessdragon.repl.co:1234");
+	});
 </script>
 
 <style>

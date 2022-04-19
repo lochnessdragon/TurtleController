@@ -38,6 +38,6 @@ async fn main() {
 
 async fn spawn_ws(mut socket: TcpStream, addr: SocketAddr) {
 	// print bytes from the byte stream and close the connection
-	println("Recieved connection from: {}", addr);
+	println!("Recieved connection from: {}", addr);
 	// the connection closes when it goes out of scope.
 }
