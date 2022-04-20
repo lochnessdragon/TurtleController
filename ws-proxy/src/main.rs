@@ -1,5 +1,6 @@
 use tokio::net::{TcpListener, TcpStream};
 use tokio::io::AsyncReadExt;
+use std::net::SocketAddr;
 
 fn usage() {
 	println!("Usage: ws-proxy [-h] [port number]");
@@ -23,7 +24,7 @@ async fn main() {
 			}
 		}
 	}
-	println!("Opening server of port: {}", port);
+	println!("Opening ws proxy server on port: {}", port);
 	// bind a tcp listener to this address
 	let listener = TcpListener::bind("localhost:".to_owned() + &port[..]).await.unwrap();
 

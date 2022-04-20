@@ -2,7 +2,7 @@
 	import { onMount } from 'svelte';
 	let chat = [];
 	let newMessage = "";
-	let ws = null;
+	var ws = null;
 	
 	function addMessage(user, msg) {
 		chat.unshift(user + ": " + msg);
@@ -10,18 +10,40 @@
 		// trigger re render
 		chat = chat;
 
-		document.getElementById("chat-box").innerHtml="test"
+		//document.getElementById("chat-box").innerHtml="test";
+	}
+
+	function sendMessage(msg) {
+		console.log("Sending message: " + msg);
+		ws.send(msg);
 	}
 
 	function onSubmit(event) {
-		addMessage("You", newMessage)
+		sendMessage(newMessage);
+		addMessage("You", newMessage);
 		newMessage = "";
 	}
 
 	onMount(async () => {
 		addMessage("Info", "Attempting to connect to server!");
+		
+		try {
+			ws = new WebSocket("wss://TurtleController.lochnessdragon.repl.co:1234");
 
-		ws = new WebSocket("https://TurtleController.lochnessdragon.repl.co:1234");
+			// add error handler
+			ws.addEventListener('error', function (event) {
+  			console.log('WebSocket error: ', event);
+				addMessage("Error", event);
+			});
+
+			// add reciever handler
+			ws.onmessage = function (event) {
+  			console.log(event.data);
+				addMessage("Server", event.data);
+			}
+		} catch (error) {
+			addMessage("Error", error);
+		}
 	});
 </script>
 
