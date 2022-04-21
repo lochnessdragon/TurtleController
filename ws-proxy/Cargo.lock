@@ -733,6 +733,7 @@ checksum = "d19538ccc21819d01deaf88d6a17eae6596a12e9aafdbb97916fb49896d89de9"
 name = "ws-proxy"
 version = "0.1.0"
 dependencies = [
+ "futures-util",
  "log",
  "simple_logger",
  "tokio",

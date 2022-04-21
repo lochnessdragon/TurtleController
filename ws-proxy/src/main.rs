@@ -1,6 +1,18 @@
 use tokio::net::{TcpListener, TcpStream};
+use futures_util::{future, StreamExt, TryStreamExt};
 use tokio::io::AsyncReadExt;
 use std::net::SocketAddr;
+
+enum ConnState {
+	Login,
+	Proxy,
+	Shutdown
+}
+
+enum ConnType {
+	Client,
+	Turtle
+}
 
 fn usage() {
 	println!("Usage: ws-proxy [-h] [port number]");
@@ -37,8 +49,22 @@ async fn main() {
 	}
 }
 
-async fn spawn_ws(mut socket: TcpStream, addr: SocketAddr) {
+async fn spawn_ws(socket: TcpStream, addr: SocketAddr) {
 	// print bytes from the byte stream and close the connection
 	println!("Recieved connection from: {}", addr);
+
+	// initialize websocket connection
+	let ws_stream = tokio_tungstenite::accept_async(socket)
+		.await
+		.expect("Error occured during websocket handshake!");
+	
+	println!("New websocket connection from: {}", addr);
+
+	let (write, read) = ws_stream.split();
+	
+	read.try_filter(|msg| future::ready(msg.is_text() || msg.is_binary()))
+		.forward(write)
+		.await
+		.expect("Failed to forward messages")
 	// the connection closes when it goes out of scope.
 }

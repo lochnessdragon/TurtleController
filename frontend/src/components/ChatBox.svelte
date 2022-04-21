@@ -19,16 +19,18 @@
 	}
 
 	function onSubmit(event) {
-		sendMessage(newMessage);
-		addMessage("You", newMessage);
+		if(newMessage == "/retry") {
+			createWebSocket();
+		} else {
+			sendMessage(newMessage);
+			addMessage("You", newMessage);
+		}
 		newMessage = "";
 	}
 
-	onMount(async () => {
-		addMessage("Info", "Attempting to connect to server!");
-		
+	function createWebSocket() {
 		try {
-			ws = new WebSocket("wss://TurtleController.lochnessdragon.repl.co:1234");
+			ws = new WebSocket("ws://localhost:1234");
 
 			// add error handler
 			ws.addEventListener('error', function (event) {
@@ -44,6 +46,12 @@
 		} catch (error) {
 			addMessage("Error", error);
 		}
+	}
+
+	onMount(async () => {
+		addMessage("Info", "Attempting to connect to server!");
+		
+		createWebSocket();
 	});
 </script>
 
