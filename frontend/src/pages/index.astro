@@ -4,7 +4,8 @@ import Logo from '../components/Logo.astro';
 import '../styles/global.css';
 import '../styles/home.css';
 import SvelteCounter from '../components/SvelteCounter.svelte';
-import ChatBox from '../components/ChatBox.svelte';
+import Log from '../components/Log.svelte';
+import TabbedContainer from '../components/TabbedContainer.svelte';
 
 // Component Script:
 // You can write any JavaScript/TypeScript that you'd like here.
@@ -83,7 +84,7 @@ let title = 'Turtle Controller Client';
 		-->
 
 		<!--<SvelteCounter client:visible />-->
-		<ChatBox client:load/>
+		<TabbedContainer client:load/>
 	</main>
 </body>
 </html>

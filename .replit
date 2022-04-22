@@ -1,4 +1,4 @@
-run = "./spin_up_dev.sh"
+run = "cd frontend && npm run dev"
 
 [nix]
 channel = "stable-21_11"
